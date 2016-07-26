@@ -48,8 +48,9 @@ import StaticTable from './table/static-table';
 import DynamicTable from './table/dynamic-table';
 
 import SimpleRadialChart from './radial-chart/simple-radial-chart';
-
 import CustomRadiusRadialChart from './radial-chart/custom-radius-radial-chart';
+
+import LesMisCharacters from './force/les-mis-characters';
 
 import {isReactDOMSupported} from '../lib/utils/react-utils';
 
@@ -166,6 +167,15 @@ const examples = (
         <h3>Dynamic Table</h3>
         <p>Updates each 5 seconds</p>
         <DynamicTable />
+      </section>
+
+      <h1>Force-Directed (Dependency) graphs</h1>
+      <section>
+        <h3>Character Diagram, <em>Les Miserablés</em></h3>
+        <p>
+          From <a href="https://bl.ocks.org/mbostock/4062045">Mike Bostock</a>
+        </p>
+        <LesMisCharacters />
       </section>
     </article>
   </main>
