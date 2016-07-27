@@ -92,8 +92,7 @@ export default class InteractiveForceDirectedGraph extends Component {
       onBlurNode,
       onClickNode,
       onClickLabel,
-      nodes,
-      links,
+      data: {nodes, links},
       opacityFactor,
       ...spreadableProps
     } = this.props;
@@ -116,32 +115,33 @@ export default class InteractiveForceDirectedGraph extends Component {
     };
     /* eslint-enable func-style */
 
-    // style the nodes with opacity and label settings
-    // based on selection and hovering.
-    const styledNodes = nodes.map(node => Object.assign({}, node, {
-      style: Object.assign({}, DEFAULT_NODE_STYLES, node.styles),
-      labelStyle: Object.assign({}, DEFAULT_LABEL_STYLES, node.labelStyles),
-      showLabel: (selectedNode && nodeId(selectedNode) === nodeId(node)) ||
-        (hoveredNode && nodeId(hoveredNode) === nodeId(node)),
-      opacity: (selectedNode || hoveredNode) &&
-        (!selectedNode || nodeId(selectedNode) !== nodeId(node)) &&
-        (!hoveredNode || nodeId(hoveredNode) !== nodeId(node)) ?
-          _applyOpacity(node.opacity) :
-          node.opacity
-    }));
+    const styledData = {
+      // style the nodes with opacity and label settings
+      // based on selection and hovering.
+      nodes: nodes.map(node => Object.assign({}, node, {
+        style: Object.assign({}, DEFAULT_NODE_STYLES, node.styles),
+        labelStyle: Object.assign({}, DEFAULT_LABEL_STYLES, node.labelStyles),
+        showLabel: (selectedNode && nodeId(selectedNode) === nodeId(node)) ||
+          (hoveredNode && nodeId(hoveredNode) === nodeId(node)),
+        opacity: (selectedNode || hoveredNode) &&
+          (!selectedNode || nodeId(selectedNode) !== nodeId(node)) &&
+          (!hoveredNode || nodeId(hoveredNode) !== nodeId(node)) ?
+            _applyOpacity(node.opacity) :
+            node.opacity
+      })),
 
-    // style the links based on selection and hovering
-    const styledLinks = links.map(link => Object.assign({}, link, {
-      opacity: selectedNode || hoveredNode ?
-        _applyOpacity(link.opacity) :
-        link.opacity
-    }));
+      // style the links based on selection and hovering
+      links: links.map(link => Object.assign({}, link, {
+        opacity: selectedNode || hoveredNode ?
+          _applyOpacity(link.opacity) :
+          link.opacity
+      }))
+    };
 
     return (
       <ForceDirectedGraph
         {...spreadableProps}
-        nodes={styledNodes}
-        links={styledLinks}
+        data={styledData}
         onHoverNode={_createEventHanlder('onHoverNode', onHoverNode)}
         onBlurNode={_createEventHanlder('onBlurNode', onBlurNode)}
         onClickNode={_createEventHanlder('onClickNode', onClickNode)}

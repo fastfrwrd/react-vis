@@ -85,15 +85,17 @@ const LINK_DEFAULTS = {
 
 ForceDirectedGraph.propTypes = {
   // data
-  nodes: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    group: PropTypes.number
-  })).isRequired,
-  links: PropTypes.arrayOf(PropTypes.shape({
-    source: PropTypes.string,
-    target: PropTypes.string,
-    value: PropTypes.number
-  })).isRequired,
+  data: PropTypes.shape({
+    nodes: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      group: PropTypes.number
+    })).isRequired,
+    links: PropTypes.arrayOf(PropTypes.shape({
+      source: PropTypes.string,
+      target: PropTypes.string,
+      value: PropTypes.number
+    })).isRequired
+  }).isRequired,
 
   // display
   width: PropTypes.number,
@@ -144,8 +146,7 @@ function ForceDirectedGraph(props) {
   const {
     width,
     height,
-    nodes,
-    links,
+    data: {nodes, links},
     labelAttr,
     labelOffset,
     showLabels
@@ -219,7 +220,6 @@ function ForceDirectedGraph(props) {
 
   return (
     <svg className="force-directed-graph" width={width} height={height}>
-      {props.children}
       <g className="force-directed-graph--links">{linkElements}</g>
       <g className="force-directed-graph--nodes">{nodeElements}</g>
       <g className="force-directed-graph--labels">{labelElements}</g>

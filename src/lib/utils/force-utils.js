@@ -77,8 +77,9 @@ const ALPHA_FACTORS = [
  * @param {object} options
  * @param {number} options.height
  * @param {number} options.width
- * @param {array} options.nodes
- * @param {array} options.links
+ * @param {object} options.data
+ * @param {array} options.data.nodes
+ * @param {array} options.data.links
  * @param {function} [options.chargeStrength]
  * @param {number} [options.alpha]
  * @param {number} [options.alphaDecay]
@@ -109,10 +110,14 @@ export function createSimulation(options) {
   // set the nodes and links for this simulation. provide
   // new instances to avoid mutating the underlying values.
   simulation.nodes(
-    options.nodes.map(({id, radius}) => ({id, radius}))
+    options.data.nodes.map(
+      ({id, radius}) => ({id, radius})
+    )
   );
   simulation.force('link').links(
-    options.links.map(({source, target, value}) => ({source, target, value}))
+    options.data.links.map(
+      ({source, target, value}) => ({source, target, value})
+    )
   );
 
   return simulation;

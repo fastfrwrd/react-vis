@@ -402,19 +402,17 @@ export default function LesMisCharacters(props) {
   }
 
   return (
-    <InteractiveForceDirectedGraph
-      chargeStrength={chargeStrength}
-      nodes={nodes}
-      links={links}
-      onSelectNode={onSelectNode}
-    >
-      <defs>
-        <style>{`
-          .force-directed-graph--node, .force-directed-graph--link {
-            transition: opacity 250ms;
-          }
-        `}</style>
-      </defs>
-    </InteractiveForceDirectedGraph>
+    <div>
+      <InteractiveForceDirectedGraph
+        data={{nodes, links}}
+        chargeStrength={chargeStrength}
+        onSelectNode={onSelectNode}
+      />
+      <style>{`
+        .force-directed-graph--node, .force-directed-graph--link {
+          transition: opacity 250ms;
+        }
+      `}</style>
+    </div>
   );
 }
